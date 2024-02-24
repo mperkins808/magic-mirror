@@ -44,7 +44,7 @@ docker run mattyp123/magicmirror --remote wss://myremotehost/mirrors --local htt
 
 ## Schema
 
-magic mirror expects a specific message structure for requests and returns a specific response struct. All messages send to magicmirror must be base64 encoded and all messages magicmirror sends to the server will be base64 encoded. Messages should be base64 encodings of the following json objects
+magic mirror expects a specific message structure for requests and returns a specific response struct. All messages sent to magicmirror must be base64 encoded and all messages magicmirror sends to the server will be base64 encoded. Messages should be base64 encodings of the following json objects
 
 **Request Object**
 
@@ -87,7 +87,7 @@ magic mirror expects a specific message structure for requests and returns a spe
   "body": "Foo bar Foo Bbar (byte array but as a string would look like this)",
   "headers": {
     "SomeHeader": {
-      "Foo": "bar"
+      "Foo": ["bar"]
     }
   },
   "status_code": 200
