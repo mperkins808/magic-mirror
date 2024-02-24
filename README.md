@@ -13,7 +13,7 @@ docker pull mattyp123/magicmirror:0.0.1
 As a binary. Tested on Mac, Results may vary
 
 ```
-sudo curl -sSL https://raw.githubusercontent.com/mperkins808/magic-mirror/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/mperkins808/magic-mirror/main/install.sh\?foo\=bar | sudo bash
 ```
 
 ## usage
