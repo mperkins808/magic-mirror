@@ -11,7 +11,7 @@ curl -L $BINARY_URL -o $TEMP_DIR/$BINARY_NAME
 
 chmod +x $TEMP_DIR/$BINARY_NAME
 
-mv $TEMP_DIR/$BINARY_NAME /usr/local/bin/
+cp $TEMP_DIR/$BINARY_NAME /usr/local/bin/$BINARY_NAME
 
 rm -rf $TEMP_DIR
 
