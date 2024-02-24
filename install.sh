@@ -2,7 +2,7 @@
 
 GITHUB_REPO="mperkins808/magic-mirror"
 BINARY_NAME="magicmirror"
-TAG="0.0.2"
+TAG="0.0.3"
 BINARY_URL="https://github.com/$GITHUB_REPO/releases/download/$TAG/$BINARY_NAME"
 
 TEMP_DIR=$(mktemp -d)
