@@ -7,13 +7,14 @@ HTTP requests routed through websockets. Establish remote connections from a ser
 With docker
 
 ```bash
-docker pull foo
+docker pull mattyp123/magicmirror:0.0.1
 ```
 
-As a binary
+As a binary. Tested on Mac, Results may vary
 
 ```
-curl foo
+curl -sSL https://raw.githubusercontent.com/mperkins808/magicmirror/main/install.sh | bash
+
 ```
 
 ## usage
@@ -39,7 +40,7 @@ magicmirror --remote wss://myremotehost/mirrors --local http://localhost:9090 --
 With Docker
 
 ```bash
-docker <INSERT>
+docker run mattyp123/magicmirror --remote wss://myremotehost/mirrors --local http://localhost:9090 --apikey <INSERT> --name prometheus
 ```
 
 ## Schema
@@ -137,8 +138,14 @@ func WSMirrorHandler(w http.ResponseWriter, r *http.Request, sm *socketmanager.S
 
 Then in other functions we can retrieve the connection and forward requests to it
 
+Add the encoder to easily encode and decode messages
+
+```bash
+go get -u github.com/mperkins808/magic-mirror/go/pkg/encoder
+```
+
 ```go
-func TestFunc(w http.ResponseWriter, r *http.Request, sm *socketmanager.SimpleSocketManager) {
+func ExampleHandler(w http.ResponseWriter, r *http.Request, sm *socketmanager.SimpleSocketManager) {
 
 	req, _ := http.NewRequest(http.MethodGet, "http://localhost:9090/metrics", nil)
     id := r.URL.Query().Get("id")
@@ -160,8 +167,7 @@ func TestFunc(w http.ResponseWriter, r *http.Request, sm *socketmanager.SimpleSo
 
 	conn := arb.Value.(*websocket.Conn)
 
-
-	encoded, err := EncodeRequest(req)
+	encoded, err := encoder.EncodeRequest(req)
 	if err != nil {
 		log.Error("failed to encode request ", err)
 		responses.Response(w, http.StatusInternalServerError, err.Error())
@@ -178,7 +184,7 @@ func TestFunc(w http.ResponseWriter, r *http.Request, sm *socketmanager.SimpleSo
 		return
 	}
 
-	resp, err := DecodeResponse(string(msg))
+	resp, err := encoder.DecodeResponse(string(msg))
 	if err != nil {
 		log.Error("failed to read connection message ", err)
 		responses.Response(w, http.StatusInternalServerError, err.Error())
