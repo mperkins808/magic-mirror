@@ -29,7 +29,7 @@ func EncodeRequest(req *http.Request) (string, error) {
 		return "", fmt.Errorf("request is nil")
 	}
 
-	uri := fmt.Sprintf("%v://%v%v", req.URL.Scheme, req.URL.Host, req.URL.Path)
+	uri := req.URL.String()
 	method := req.Method
 
 	var body []byte = nil

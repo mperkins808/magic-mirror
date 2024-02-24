@@ -32,7 +32,7 @@ func EncodeRequest(req *http.Request) (string, error) {
 		return "", fmt.Errorf("request is nil")
 	}
 
-	uri := fmt.Sprintf("%v://%v%v", req.URL.Scheme, req.URL.Host, req.URL.Path)
+	uri := req.URL.String()
 	method := req.Method
 
 	var body []byte = nil
@@ -95,8 +95,10 @@ func DecodeRequest(req []byte, local string) (*http.Request, error) {
 		if err != nil {
 			return nil, fmt.Errorf("local uri is not valid: %v", err)
 		}
+		u.Host = localU.Host
+		u.Scheme = localU.Scheme
 
-		sanitizedURL = fmt.Sprintf("%v://%v%v", localU.Scheme, localU.Host, u.Path)
+		sanitizedURL = u.String()
 	}
 
 	request, err := http.NewRequest(decoded.Method, sanitizedURL, strings.NewReader(string(decoded.Body)))
