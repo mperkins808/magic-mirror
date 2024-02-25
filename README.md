@@ -7,7 +7,7 @@ HTTP requests routed through websockets. Establish remote connections from a ser
 With docker
 
 ```bash
-docker pull mattyp123/magicmirror:0.0.1
+docker pull mattyp123/magicmirror
 ```
 
 As a binary. Tested on Mac, Results may vary
